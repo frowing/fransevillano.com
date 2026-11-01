@@ -1,69 +1,34 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getPosts, postPath, formatDate } from '../lib/posts';
+import PostBody from '../components/PostBody.astro';
+import { getPosts } from '../lib/posts';
 
 const posts = await getPosts();
 ---
 
 <Base>
   <section class="intro">
-    <h1>Fran Sevillano</h1>
-    <p>Writing about product management, health and the habits that make a good day.</p>
+    <img src="/images/face.jpg" alt="Fran Sevillano" width="104" height="104" class="avatar" />
+    <!-- prettier-ignore -->
+    <p>👋 My name is Fran and I make <a href="https://www.lonelyplanet.com/guides">travel apps</a> for a living, but I'm interested in many more things. You can follow me on <a href="https://twitter.com/fran__sevillano">Twitter</a>, <a href="https://www.instagram.com/fran__sevillano/">Instagram</a>, and <a href="https://medium.com/@fransevillano">Medium</a>.</p>
   </section>
 
-  <section>
-    <h2>Writing</h2>
-    <ul class="posts">
-      {
-        posts.map((post) => (
-          <li>
-            <a href={postPath(post)}>{post.data.title}</a>
-            <span class="muted">{formatDate(post.data.date)}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  {posts.map((post) => <PostBody post={post} linkTitle />)}
 </Base>
 
 <style>
   .intro {
-    margin-bottom: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 6rem;
   }
 
   .intro p {
-    font-size: 1.2rem;
-    margin: 0;
-  }
-
-  h2 {
+    max-width: 30rem;
+    margin: 1.5rem 0 0;
     font-size: 1rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
-  }
-
-  .posts {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .posts li {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.25rem;
-  }
-
-  .posts a {
-    text-decoration: none;
-    font-weight: 550;
-  }
-
-  .posts a:hover {
-    text-decoration: underline;
-  }
-
-  .posts span {
-    font-size: 0.9rem;
+    line-height: 1.7;
   }
 </style>
