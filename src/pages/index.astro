@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import { getPosts, postPath, formatDate } from '../lib/posts';
+
+const posts = await getPosts();
+---
+
+<Base>
+  <section class="intro">
+    <h1>Fran Sevillano</h1>
+    <p>Writing about product management, health and the habits that make a good day.</p>
+  </section>
+
+  <section>
+    <h2>Writing</h2>
+    <ul class="posts">
+      {
+        posts.map((post) => (
+          <li>
+            <a href={postPath(post)}>{post.data.title}</a>
+            <span class="muted">{formatDate(post.data.date)}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .intro {
+    margin-bottom: 3.5rem;
+  }
+
+  .intro p {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .posts li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+  }
+
+  .posts a {
+    text-decoration: none;
+    font-weight: 550;
+  }
+
+  .posts a:hover {
+    text-decoration: underline;
+  }
+
+  .posts span {
+    font-size: 0.9rem;
+  }
+</style>

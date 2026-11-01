@@ -1,0 +1,55 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../../layouts/Base.astro';
+import { getPosts, postPath, formatDate, type Post } from '../../../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => {
+    const [, year, month, day, slug] = postPath(post).split('/');
+    return { params: { year, month, day, slug }, props: { post } };
+  });
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content } = await render(post);
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <article>
+    <h1>{post.data.title}</h1>
+    <p class="muted date">{formatDate(post.data.date)}</p>
+    <Content />
+  </article>
+</Base>
+
+<style>
+  .date {
+    margin: 0 0 2.5rem;
+  }
+
+  article :global(h2) {
+    font-size: 1.4rem;
+    margin-top: 2.5rem;
+  }
+
+  article :global(h3),
+  article :global(h4),
+  article :global(h5) {
+    font-size: 1.1rem;
+    margin-top: 2rem;
+  }
+
+  article :global(pre) {
+    overflow-x: auto;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--text) 6%, var(--bg));
+    font-size: 0.9rem;
+  }
+
+  article :global(blockquote) {
+    margin: 1.5rem 0;
+    padding-left: 1.25rem;
+    color: var(--muted);
+  }
+</style>
