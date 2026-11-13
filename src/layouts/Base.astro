@@ -37,6 +37,7 @@ const isHome = Astro.url.pathname === '/';
     <meta property="og:title" content={title ?? siteName} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
     <meta property="og:image" content={new URL('/images/face.jpg', Astro.site)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -57,7 +58,7 @@ const isHome = Astro.url.pathname === '/';
       <slot />
     </main>
     <footer>
-      <slot name="footer"><a href="/rss.xml">RSS</a></slot>
+      <slot name="footer"><a href="/rss.xml">RSS</a> · <a href="/codigos/" lang="es" hreflang="es">Mis códigos amigo</a></slot>
     </footer>
   </body>
 </html>

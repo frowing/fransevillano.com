@@ -5,14 +5,17 @@ import CodigoAction from '../../components/CodigoAction.astro';
 import { getCodigos, codigoPath, fechaLarga, isDraft } from '../../lib/codigos';
 
 const codigos = await getCodigos();
+
+// "Coinbase, MyInvestor y Octopus Energy": the app names make the list findable by name
+const names = codigos.map((c) => c.data.name);
+const nameList = names.length > 1 ? `${names.slice(0, -1).join(', ')} y ${names.at(-1)}` : (names[0] ?? '');
+const title = nameList ? `Códigos amigo de ${nameList}` : 'Mis códigos amigo';
+const description = nameList
+  ? `Códigos amigo de ${nameList}, revisados a mano: qué consigues tú, las condiciones y la fecha de la última revisión.`
+  : 'Mis códigos amigo y enlaces de invitación, revisados a mano.';
 ---
 
-<Base
-  lang="es"
-  hideHeader
-  title="Mis códigos amigo"
-  description="Los códigos amigo y enlaces de invitación de Fran Sevillano: qué consigues tú, las condiciones y la fecha de la última revisión."
->
+<Base lang="es" hideHeader title={title} description={description}>
   <section class="intro">
     <a href="/" aria-label="Fran Sevillano, inicio">
       <img src="/images/face.jpg" alt="Fran Sevillano" width="104" height="104" class="avatar" />
