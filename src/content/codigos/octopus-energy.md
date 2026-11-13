@@ -6,7 +6,7 @@ code: "savage-sunflower-948"
 link: "https://share.octopusenergy.es/savage-sunflower-948"
 headline: "50 € de crédito en tu cuenta de luz"
 opinion: "Cambiarse es facilísimo, las tarifas y las facturas son súper claras. El año pasado me ahorré más de 600 euros con ellos."
-blurb: "Con mi código os dan **50 € de saldo** a cada uno."
+blurb: "Con mi código nos dan **50 € de saldo** a cada uno."
 rewardUser: "50 € de crédito en tu cuenta de Octopus Energy."
 rewardSharer: "50 € de crédito en mi cuenta de Octopus."
 conditions:
