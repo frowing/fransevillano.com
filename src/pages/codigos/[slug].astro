@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import CodigosFooter from '../../components/CodigosFooter.astro';
+import CodigoAction from '../../components/CodigoAction.astro';
 import { getCodigos, codigoPath, fechaLarga, mesAno, isDraft, type Codigo } from '../../lib/codigos';
 
 export async function getStaticPaths() {
@@ -58,23 +59,7 @@ const jsonLd = [
       Usa {how} al darte de alta en {d.name} y consigue <strong>{d.headline}</strong>.
     </p>
 
-    {
-      d.code && (
-        <div class="code-box">
-          <code>{d.code}</code>
-          <button type="button" class="copy" data-code={d.code}>Copiar</button>
-        </div>
-      )
-    }
-    {
-      d.link && (
-        <p class="cta-wrap">
-          <a class="cta" href={d.link} rel="sponsored nofollow noopener" target="_blank">
-            Darme de alta en {d.name}
-          </a>
-        </p>
-      )
-    }
+    <CodigoAction codigo={codigo} />
     {isDraft(codigo) && <p class="draft">Borrador: añade tu código o tu enlace en src/content/codigos/{codigo.id}.md</p>}
 
     {
@@ -115,19 +100,6 @@ const jsonLd = [
   <CodigosFooter slot="footer" />
 </Base>
 
-<script>
-  document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((button) => {
-    button.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(button.dataset.code ?? '');
-        button.textContent = '¡Copiado!';
-      } catch {
-        button.textContent = 'Cópialo a mano';
-      }
-    });
-  });
-</script>
-
 <style>
   .kicker {
     margin: 0;
@@ -151,46 +123,6 @@ const jsonLd = [
   .answer {
     font-size: 1.25rem;
     line-height: 1.6;
-  }
-
-  .code-box {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 2rem 0;
-    padding: 1rem 1.25rem;
-    border: 2px dashed var(--heading);
-    border-radius: 12px;
-  }
-
-  .code-box code {
-    flex: 1;
-    color: var(--heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    word-break: break-all;
-  }
-
-  .copy,
-  .cta {
-    display: inline-block;
-    padding: 0.6rem 1.25rem;
-    border: 0;
-    border-radius: 999px;
-    background: var(--heading);
-    color: var(--bg);
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.4;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .cta-wrap {
-    margin: 2rem 0;
-    text-align: center;
   }
 
   .draft {
