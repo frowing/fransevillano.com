@@ -2,7 +2,7 @@
 name: "Croissant"
 category: "Coworking"
 # Pega aquí tu código y/o tu enlace de invitación. Sin ninguno de los dos, la página no se publica.
-code: ""
+code: "francisco39"
 link: "https://www.getcroissant.com/a/francisco39"
 headline: "15 € de descuento en tu primer mes"
 rewardUser: "15 € de descuento en tu primer mes de membresía."
