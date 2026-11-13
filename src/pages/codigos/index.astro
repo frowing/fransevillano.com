@@ -13,9 +13,34 @@ const title = nameList ? `Códigos amigo de ${nameList}` : 'Mis códigos amigo';
 const description = nameList
   ? `Códigos amigo de ${nameList}, revisados a mano: qué consigues tú, las condiciones y la fecha de la última revisión.`
   : 'Mis códigos amigo y enlaces de invitación, revisados a mano.';
+
+const site = 'https://fransevillano.com';
+const fran = { '@type': 'Person', name: 'Fran Sevillano', url: `${site}/` };
+const jsonLd = codigos.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: title,
+      description,
+      url: `${site}/codigos/`,
+      inLanguage: 'es-ES',
+      dateModified: ultimaRevision(codigos).toISOString().slice(0, 10),
+      author: fran,
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: codigos.map((c, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: c.data.code ? `Código amigo ${c.data.name}: ${c.data.code}` : `Enlace de invitación ${c.data.name}`,
+          url: `${site}${codigoPath(c)}`,
+        })),
+      },
+    }
+  : null;
 ---
 
 <Base lang="es" hideHeader title={title} description={description}>
+  {jsonLd && <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />}
   <section class="intro">
     <a href="/" aria-label="Fran Sevillano, inicio">
       <img src="/images/face.jpg" alt="Fran Sevillano" width="76" height="76" class="avatar" />
@@ -46,7 +71,7 @@ const description = nameList
     )
   }
 
-  <CodigosFooter slot="footer" />
+  <CodigosFooter slot="footer" hub />
 </Base>
 
 <style>

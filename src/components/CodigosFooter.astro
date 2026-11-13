@@ -1,5 +1,10 @@
 ---
-// Spanish footer for the /codigos/ section, in place of the blog's RSS link
+// Spanish footer for the /codigos/ section, in place of the blog's RSS link.
+// The list page itself leaves out the link back to the list.
+interface Props {
+  hub?: boolean;
+}
+const { hub = false } = Astro.props;
 ---
 
-<a href="/codigos/">Todos mis códigos</a> · <a href="/">fransevillano.com</a>
+{!hub && <><a href="/codigos/">Todos mis códigos</a> · </>}<a href="/">fransevillano.com</a>
