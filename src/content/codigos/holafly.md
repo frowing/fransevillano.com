@@ -5,6 +5,7 @@ category: "eSIM de viaje"
 code: "FVZQD6FYY4VE"
 link: ""
 headline: "10 % de descuento en tu eSIM"
+blurb: "eSIM para tener datos cuando viajas. **10 % de descuento** en tu compra."
 rewardUser: "10 % de descuento en tu compra."
 rewardSharer: "6 € (600 HolaCoins) para mi siguiente compra."
 conditions:

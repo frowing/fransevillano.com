@@ -5,6 +5,7 @@ category: "Fibra y móvil"
 code: ""
 link: ""
 headline: "hasta 50 € para ti"
+blurb: "Fibra y móvil. **Hasta 50 €** para ti, según lo que contrates."
 rewardUser: "25 € si contratas solo fibra o solo móvil; 50 € si contratas fibra + móvil."
 rewardSharer: "Lo mismo que tú: 25 € o 50 € según lo que contrates."
 conditions:

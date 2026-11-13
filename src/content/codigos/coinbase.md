@@ -5,6 +5,7 @@ category: "Criptomonedas"
 code: "NYC5CM4"
 link: "https://www.coinbase.com/join/NYC5CM4"
 headline: "20 € en Bitcoin para ti"
+blurb: "Para comprar criptomonedas. **20 € en bitcoin** para cada uno cuando haces tu primera compra de 20 €."
 rewardUser: "20 € en Bitcoin."
 rewardSharer: "20 € en Bitcoin."
 conditions:

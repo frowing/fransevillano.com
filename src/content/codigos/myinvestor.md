@@ -5,6 +5,7 @@ category: "Banco e inversión"
 code: "46Z9V"
 link: ""
 headline: "25 € para ti al abrir tu cuenta"
+blurb: "Banco e inversión. **25 €** para ti cuando inviertes o ahorras con ellos."
 rewardUser: "25 € brutos en tu cuenta."
 rewardSharer: "25 € brutos."
 conditions:

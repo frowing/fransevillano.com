@@ -23,3 +23,17 @@ export function fechaLarga(date: Date) {
 export function mesAno(date: Date) {
   return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', timeZone: 'UTC' });
 }
+
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** The list line: the blurb with **bold** turned into <strong>, or the headline if there is no blurb. */
+export function blurbHtml(c: Codigo) {
+  const text = c.data.blurb || `${c.data.headline}.`;
+  return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
+/** The most recent check across all codes, for the list footer. */
+export function ultimaRevision(codigos: Codigo[]) {
+  return new Date(Math.max(...codigos.map((c) => c.data.verified.getTime())));
+}

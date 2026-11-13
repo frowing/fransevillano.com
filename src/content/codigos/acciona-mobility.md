@@ -5,6 +5,7 @@ category: "Motos eléctricas compartidas"
 code: "HQI85576"
 link: ""
 headline: "30 minutos gratis en moto eléctrica"
+blurb: "Motos eléctricas compartidas por Madrid. Con el código tienes **30 minutos gratis**."
 rewardUser: "30 minutos gratis."
 rewardSharer: "20 minutos gratis cuando haces tu primer viaje (válidos 15 días)."
 conditions:

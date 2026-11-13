@@ -5,6 +5,7 @@ category: "eSIM de viaje"
 code: ""
 link: ""
 headline: "3 US$ de descuento en tu primera eSIM"
+blurb: "eSIM para tener datos cuando viajas. **3 US$ de descuento** en tu primera eSIM."
 rewardUser: "3 US$ de descuento en tu primera eSIM."
 rewardSharer: "3 US$ de saldo Airmoney."
 conditions:

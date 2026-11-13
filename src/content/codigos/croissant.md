@@ -5,6 +5,7 @@ category: "Coworking"
 code: "francisco39"
 link: "https://www.getcroissant.com/a/francisco39"
 headline: "15 € de descuento en tu primer mes"
+blurb: "Cafeterías y coworkings para trabajar fuera de casa. **15 € de descuento** en tu primer mes."
 rewardUser: "15 € de descuento en tu primer mes de membresía."
 rewardSharer: "15 € de descuento en mi siguiente factura."
 conditions:

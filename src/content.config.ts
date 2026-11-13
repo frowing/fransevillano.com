@@ -23,6 +23,8 @@ const codigos = defineCollection({
     link: z.string().default(''),
     // Shown in the page title and the list: what the visitor gets
     headline: z.string(),
+    // One casual line for the list, in my words. **text** is shown in bold.
+    blurb: z.string().default(''),
     rewardUser: z.string(),
     rewardSharer: z.string(),
     conditions: z.array(z.string()),
