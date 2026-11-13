@@ -2,7 +2,7 @@
 name: "Octopus Energy"
 category: "Luz"
 # Pega aquí tu código y/o tu enlace de invitación. Sin ninguno de los dos, la página no se publica.
-code: ""
+code: "savage-sunflower-948"
 link: "https://share.octopusenergy.es/savage-sunflower-948"
 headline: "50 € de crédito en tu cuenta de luz"
 rewardUser: "50 € de crédito en tu cuenta de Octopus Energy."

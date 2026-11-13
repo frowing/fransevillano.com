@@ -70,14 +70,14 @@ const { code, link, name } = codigo.data;
   .code-box code {
     flex: 1;
     color: var(--heading);
-    font-size: 1.5rem;
+    font-size: clamp(1.05rem, 4.5vw, 1.5rem);
     font-weight: 700;
-    letter-spacing: 0.05em;
-    word-break: break-all;
+    letter-spacing: 0.03em;
+    overflow-wrap: break-word;
   }
 
   .compact .code-box code {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 4.2vw, 1.2rem);
   }
 
   .copy,

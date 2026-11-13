@@ -16,8 +16,13 @@ const { Content } = await render(codigo);
 const hasNote = Boolean(codigo.body?.trim());
 
 const url = new URL(codigoPath(codigo), Astro.site).href;
-const title = `Código amigo ${d.name} (${mesAno(d.verified)}): ${d.headline}`;
-const description = `Código amigo y enlace de invitación de ${d.name}: ${d.rewardUser} Revisado el ${fechaLarga(d.verified)}.`;
+// The code goes in the title and description so it shows up (and gets indexed) in search results
+const title = d.code
+  ? `Código amigo ${d.name}: ${d.code} (${mesAno(d.verified)})`
+  : `Código amigo ${d.name} (${mesAno(d.verified)}): ${d.headline}`;
+const description = d.code
+  ? `Código amigo de ${d.name}: ${d.code}. Úsalo al darte de alta y consigue ${d.headline}. Revisado el ${fechaLarga(d.verified)}.`
+  : `Enlace de invitación de ${d.name}: consigue ${d.headline}. Revisado el ${fechaLarga(d.verified)}.`;
 const how = [d.code && `el código ${d.code}`, d.link && 'mi enlace de invitación'].filter(Boolean).join(' o ') || 'mi código';
 
 const jsonLd = [
