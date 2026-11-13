@@ -1,0 +1,225 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CodigosFooter from '../../components/CodigosFooter.astro';
+import { getCodigos, codigoPath, fechaLarga, mesAno, isDraft, type Codigo } from '../../lib/codigos';
+
+export async function getStaticPaths() {
+  const codigos = await getCodigos();
+  return codigos.map((codigo) => ({ params: { slug: codigo.id }, props: { codigo } }));
+}
+
+const { codigo } = Astro.props as { codigo: Codigo };
+const d = codigo.data;
+const { Content } = await render(codigo);
+const hasNote = Boolean(codigo.body?.trim());
+
+const url = new URL(codigoPath(codigo), Astro.site).href;
+const title = `Código amigo ${d.name} (${mesAno(d.verified)}): ${d.headline}`;
+const description = `Código amigo y enlace de invitación de ${d.name}: ${d.rewardUser} Revisado el ${fechaLarga(d.verified)}.`;
+const how = [d.code && `el código ${d.code}`, d.link && 'mi enlace de invitación'].filter(Boolean).join(' o ') || 'mi código';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: d.faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Mis códigos amigo', item: new URL('/codigos/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: `Código amigo ${d.name}`, item: url },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    url,
+    inLanguage: 'es-ES',
+    dateModified: d.verified.toISOString().slice(0, 10),
+    author: { '@type': 'Person', name: 'Fran Sevillano', url: new URL('/', Astro.site).href },
+  },
+];
+---
+
+<Base lang="es" title={title} description={description}>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <article>
+    <p class="kicker">
+      <a href="/codigos/">Mis códigos amigo</a> · Revisado el <time datetime={d.verified.toISOString().slice(0, 10)}>{fechaLarga(d.verified)}</time>
+    </p>
+    <h1 class="title">Código amigo {d.name}</h1>
+
+    <p class="answer">
+      Usa {how} al darte de alta en {d.name} y consigue <strong>{d.headline}</strong>.
+    </p>
+
+    {
+      d.code && (
+        <div class="code-box">
+          <code>{d.code}</code>
+          <button type="button" class="copy" data-code={d.code}>Copiar</button>
+        </div>
+      )
+    }
+    {
+      d.link && (
+        <p class="cta-wrap">
+          <a class="cta" href={d.link} rel="sponsored nofollow noopener" target="_blank">
+            Darme de alta en {d.name}
+          </a>
+        </p>
+      )
+    }
+    {isDraft(codigo) && <p class="draft">Borrador: añade tu código o tu enlace en src/content/codigos/{codigo.id}.md</p>}
+
+    {
+      hasNote && (
+        <div class="note-personal">
+          <Content />
+        </div>
+      )
+    }
+
+    <h2>Qué consigues</h2>
+    <ul>
+      <li><strong>Tú, si te das de alta {d.code ? 'con el código' : 'con el enlace'}:</strong> {d.rewardUser}</li>
+      <li><strong>Yo, por invitarte:</strong> {d.rewardSharer}</li>
+    </ul>
+
+    <h2>Condiciones</h2>
+    <ul>
+      {d.conditions.map((c) => <li>{c}</li>)}
+    </ul>
+    <p>Bases oficiales: <a href={d.officialUrl} rel="noopener">web de {d.name}</a>.</p>
+
+    <h2>Preguntas frecuentes</h2>
+    {
+      d.faq.map(({ q, a }) => (
+        <>
+          <h3>{q}</h3>
+          <p>{a}</p>
+        </>
+      ))
+    }
+
+    <p class="byline">
+      Por <a href="/">Fran Sevillano</a>. Es mi código personal: si lo usas, {d.name} me da una recompensa a mí también, sin coste para ti.
+    </p>
+  </article>
+
+  <CodigosFooter slot="footer" />
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((button) => {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.code ?? '');
+        button.textContent = '¡Copiado!';
+      } catch {
+        button.textContent = 'Cópialo a mano';
+      }
+    });
+  });
+</script>
+
+<style>
+  .kicker {
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .kicker a {
+    color: inherit;
+  }
+
+  .title {
+    margin: 0.5rem 0 2.5rem;
+    text-align: center;
+    font-size: clamp(2.25rem, 7vw, 4rem);
+    line-height: 1.25;
+  }
+
+  .answer {
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .code-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1rem 1.25rem;
+    border: 2px dashed var(--heading);
+    border-radius: 12px;
+  }
+
+  .code-box code {
+    flex: 1;
+    color: var(--heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    word-break: break-all;
+  }
+
+  .copy,
+  .cta {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--heading);
+    color: var(--bg);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .cta-wrap {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .draft {
+    padding: 0.75rem 1rem;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-top: 2.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin: 2rem 0 0.25rem;
+  }
+
+  h3 + p {
+    margin-top: 0;
+  }
+
+  .byline {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--text) 15%, var(--bg));
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+</style>

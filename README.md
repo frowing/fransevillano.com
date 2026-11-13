@@ -32,3 +32,13 @@ Pushing to `main` builds and deploys the site through `.github/workflows/deploy.
 ## Drafts
 
 Unpublished WordPress drafts are in `drafts/`, which is git-ignored so they never reach the public repo. To publish one, move it into `src/content/posts/`.
+
+## Códigos amigo (`/codigos/`)
+
+A Spanish section with my referral codes: a list at `/codigos/` and one page per app at `/codigos/<app>/`.
+
+Each app is a Markdown file in `src/content/codigos/`. To publish one, fill in `code` and/or `link` in its front matter. An app with neither stays a draft and gets no page. Any text below the front matter appears on the page as a personal note.
+
+Once a month, check each offer against `officialUrl`, update the reward text if it changed, and set `verified` to the date you checked.
+
+To see drafts locally: `CODIGOS_PREVIEW=1 npm run dev`.
