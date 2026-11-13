@@ -27,9 +27,9 @@ export function mesAno(date: Date) {
 const escapeHtml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** The list line: the blurb with **bold** turned into <strong>, or the headline if there is no blurb. */
+/** The list line: my opinion, then the blurb with **bold** turned into <strong> (or the headline if there is no blurb). */
 export function blurbHtml(c: Codigo) {
-  const text = c.data.blurb || `${c.data.headline}.`;
+  const text = [c.data.opinion, c.data.blurb || `${c.data.headline}.`].filter(Boolean).join(' ');
   return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
 

@@ -63,6 +63,15 @@ const jsonLd = [
     {isDraft(codigo) && <p class="draft">Borrador: añade tu código o tu enlace en src/content/codigos/{codigo.id}.md</p>}
 
     {
+      d.opinion && (
+        <>
+          <h2>Por qué lo uso</h2>
+          <p>{d.opinion}</p>
+        </>
+      )
+    }
+
+    {
       hasNote && (
         <div class="note-personal">
           <Content />
