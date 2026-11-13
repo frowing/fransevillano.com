@@ -30,3 +30,25 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+
+  # Tell Bing (and the other IndexNow engines) the codes pages changed, so they recrawl them in minutes.
+  # The key is public on purpose: the site serves it at /17b93eacc9fc4f96a83633eeb53e29fc.txt to prove it owns the domain.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping IndexNow with the /codigos/ pages
+        env:
+          KEY: 17b93eacc9fc4f96a83633eeb53e29fc
+          HOST: fransevillano.com
+        run: |
+          sleep 30
+          urls=$(curl -fsS "https://$HOST/sitemap-0.xml" | grep -o "https://$HOST/codigos/[^<]*" | sort -u || true)
+          echo "$urls"
+          body=$(jq -n --arg host "$HOST" --arg key "$KEY" --arg loc "https://$HOST/$KEY.txt" --arg urls "$urls" \
+            '{host: $host, key: $key, keyLocation: $loc, urlList: ($urls | split("\n") | map(select(length > 0)))}')
+          status=$(curl -sS -o /dev/stderr -w '%{http_code}' -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' -d "$body" || true)
+          echo "IndexNow answered $status"
+          # 200/202 = accepted. Never fail the deploy over this.
+          exit 0
