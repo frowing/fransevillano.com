@@ -11,13 +11,6 @@ conditions:
   - "Tienes que crear tu cuenta desde mi enlace."
   - "Solo para nuevos miembros de Croissant."
   - "El descuento vale para los planes de membresía, no para salas de reuniones ni oficinas."
-faq:
-  - q: "¿Qué es Croissant?"
-    a: "Una app de coworking que da acceso a espacios de trabajo en varias ciudades con una sola membresía."
-  - q: "¿Sirve para reservar salas de reuniones?"
-    a: "No, el descuento solo se aplica a los planes de membresía."
-  - q: "¿Funciona si ya tengo cuenta?"
-    a: "No, es solo para nuevos miembros."
 officialUrl: "https://help.getcroissant.com/en/articles/477983-can-i-refer-a-friend"
 verified: 2026-11-13
 ---

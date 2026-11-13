@@ -23,11 +23,6 @@ const how = [d.code && `el código ${d.code}`, d.link && 'mi enlace de invitaci�
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: d.faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
-  },
-  {
-    '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Mis códigos amigo', item: new URL('/codigos/', Astro.site).href },
@@ -82,16 +77,6 @@ const jsonLd = [
     </ul>
     <p>Bases oficiales: <a href={d.officialUrl} rel="noopener">web de {d.name}</a>.</p>
 
-    <h2>Preguntas frecuentes</h2>
-    {
-      d.faq.map(({ q, a }) => (
-        <>
-          <h3>{q}</h3>
-          <p>{a}</p>
-        </>
-      ))
-    }
-
     <p class="byline">
       Por <a href="/">Fran Sevillano</a>. Es mi código personal: si lo usas, {d.name} me da una recompensa a mí también, sin coste para ti.
     </p>
@@ -136,15 +121,6 @@ const jsonLd = [
   h2 {
     font-size: 1.6rem;
     margin-top: 2.5rem;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-    margin: 2rem 0 0.25rem;
-  }
-
-  h3 + p {
-    margin-top: 0;
   }
 
   .byline {

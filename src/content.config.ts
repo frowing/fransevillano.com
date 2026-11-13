@@ -26,7 +26,6 @@ const codigos = defineCollection({
     rewardUser: z.string(),
     rewardSharer: z.string(),
     conditions: z.array(z.string()),
-    faq: z.array(z.object({ q: z.string(), a: z.string() })),
     officialUrl: z.string(),
     verified: z.coerce.date(),
   }),

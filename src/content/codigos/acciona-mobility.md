@@ -10,13 +10,6 @@ rewardSharer: "20 minutos gratis cuando haces tu primer viaje (válidos 15 días
 conditions:
   - "Introduce el código al registrarte en la app de ACCIONA."
   - "Solo para nuevos usuarios."
-faq:
-  - q: "¿Qué es ACCIONA Mobility?"
-    a: "Un servicio de motos eléctricas compartidas que se alquilan por minutos desde la app de ACCIONA."
-  - q: "¿Dónde introduzco el código?"
-    a: "En la app de ACCIONA, durante el registro."
-  - q: "¿Funciona si ya tengo cuenta?"
-    a: "No, es solo para nuevos usuarios."
 officialUrl: "https://movilidad.acciona.com/"
 verified: 2026-11-13
 ---
