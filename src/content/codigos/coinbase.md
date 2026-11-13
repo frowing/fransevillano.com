@@ -14,5 +14,3 @@ conditions:
 officialUrl: "https://help.coinbase.com/en/coinbase/getting-started/getting-started-with-coinbase/new-customer-incentive/simple-referral"
 verified: 2026-11-13
 ---
-
-Ojo: las criptomonedas son muy volátiles y puedes perder todo lo que inviertas. Si te das de alta, invierte solo lo que estés dispuesto a perder.
