@@ -1,0 +1,102 @@
+---
+// The thing a visitor actually uses: the code with a copy button, and/or the invitation link.
+import type { Codigo } from '../lib/codigos';
+
+interface Props {
+  codigo: Codigo;
+  compact?: boolean;
+}
+
+const { codigo, compact = false } = Astro.props;
+const { code, link, name } = codigo.data;
+---
+
+<div class:list={['action', { compact }]}>
+  {
+    code && (
+      <div class="code-box">
+        <code>{code}</code>
+        <button type="button" class="copy" data-code={code}>Copiar</button>
+      </div>
+    )
+  }
+  {
+    link && (
+      <a class="cta" href={link} rel="sponsored nofollow noopener" target="_blank">
+        Darme de alta en {name}
+      </a>
+    )
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((button) => {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.code ?? '');
+        button.textContent = '¡Copiado!';
+      } catch {
+        button.textContent = 'Cópialo a mano';
+      }
+    });
+  });
+</script>
+
+<style>
+  .action {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .action.compact {
+    margin: 1rem 0 0;
+    text-align: left;
+  }
+
+  .code-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border: 2px dashed var(--heading);
+    border-radius: 12px;
+    text-align: left;
+  }
+
+  .compact .code-box {
+    padding: 0.6rem 0.6rem 0.6rem 1rem;
+  }
+
+  .code-box code {
+    flex: 1;
+    color: var(--heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    word-break: break-all;
+  }
+
+  .compact .code-box code {
+    font-size: 1.2rem;
+  }
+
+  .copy,
+  .cta {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--heading);
+    color: var(--bg);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .code-box + .cta {
+    margin-top: 1rem;
+  }
+</style>
