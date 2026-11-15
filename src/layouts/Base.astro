@@ -43,6 +43,8 @@ const isHome = Astro.url.pathname === '/';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
     <slot name="head" />
+    <!-- GoatCounter: cookieless visit counts, dashboard at fransevillano.goatcounter.com -->
+    <script is:inline data-goatcounter="https://fransevillano.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   </head>
   <body>
     {

@@ -18,7 +18,7 @@ const { code, link, name } = codigo.data;
       code && (
         <>
           <span class="sep" aria-hidden="true">·</span>
-          <button type="button" class="copy" data-code={code}>
+          <button type="button" class="copy" data-code={code} data-goatcounter-click={`copiar-${codigo.id}`} data-goatcounter-title={`Copiar código ${name}`}>
             copiar
           </button>
         </>
@@ -28,7 +28,7 @@ const { code, link, name } = codigo.data;
       link && (
         <>
           {code && <span class="sep" aria-hidden="true">·</span>}
-          <a class="link" href={link} rel="sponsored nofollow noopener" target="_blank">
+          <a class="link" href={link} rel="sponsored nofollow noopener" target="_blank" data-goatcounter-click={`enlace-${codigo.id}`} data-goatcounter-title={`Enlace ${name}`}>
             {code ? 'abrir enlace' : `darme de alta en ${name}`}
           </a>
         </>
